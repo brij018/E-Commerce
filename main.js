@@ -109,33 +109,45 @@ const productList = document.getElementById("productList");
 
 products.forEach((p) => {
   productList.innerHTML += `
+
+
     <div class="col-md-4" >
-      <div class="card product-card m-3">
-        <img src="${p.image}" class="card-img-top" alt="${p.name}">
-        <div class="card-body text-center">
-          <h3 class="card-title">${p.name}</h3>
-          <h5> ₹ ${p.price}</h5>
-          <button class="btn btn-primary" onclick="addItem(${p.id})">add to cart</button>
-        </div>
-      </div>
+    <div class="card product-card m-3">
+  <img src="${p.image}" class="card-img-top" alt="${p.name}">
+  <div class="card-body text-center">
+    <h3 class="card-title">${p.name}</h3>
+    <h5> ₹ ${p.price}</h5>
+    <button class="btn btn-primary" onclick="addItem(${p.id})"  >
+    add to cart</button>
+   
+  </div>
+</div>
+    
     </div>
+    
+    
     `;
 });
 
-const cartItems = JSON.parse(localStorage.getItem("cartdata")) || []
+let cartItems = JSON.parse(localStorage.getItem("cartData")) || [];
 
-const addItem = (id)=>{
-  const item = cartItems.find((prod)=>prod.id===id);
-  if(item){
+const addItem = (id) => {
+  const item = cartItems.find((prod) => prod.id === id);
+
+  if (item) {
     item.qty++;
-  }else{
-    const product = products.find((p)=>p.id===id)
-    cartItems.push({...product, qty : 1})
+  } else {
+    const product = products.find((prod) => prod.id === id);
+
+    cartItems.push({ ...product, qty: 1 });
   }
-  localStorage.setItem("cartData",JSON.stringify(cartItems))
-  alert("Item Added To Cart..!!")
+
+  localStorage.setItem("cartData", JSON.stringify(cartItems));
+
+  alert("product added");
 };
 
+console.log("cartItems", cartItems);
 
 const showCart = () => {
   const productList = document.getElementById("product-list");
@@ -144,6 +156,7 @@ const showCart = () => {
 
   modal.show();
   productData();
+  total();
 };
 
 function productData() {
@@ -158,14 +171,81 @@ function productData() {
     <td>${p.name}</td>
     <td>${p.price}</td>
     <td>
-    <button class="btn btn-secondary btn-sm" >-</button>
-    <p>${p.qty}</p>
-    <button class="btn btn-secondary btn-sm" >+</button>
+    <button class="btn btn-secondary btn-sm" onclick="decreaseQty(${
+      p.id
+    })" >-</button>
+    <span class="mx-2">${p.qty}</span>
+    <button class="btn btn-secondary btn-sm" onclick="increaseQty(${
+      p.id
+    })" >+</button>
     
     </td>
     <td> ₹ ${p.qty * p.price}</td>
-    <td><button class="btn btn-sm btn-danger" >Remove</button></td>
+    <td><button class="btn btn-sm btn-danger" onclick="removeItem(${
+      p.id
+    })" >Remove</button></td>
     </tr>
     `;
   });
 }
+
+const decreaseQty = (id) => {
+  const item = cartItems.find((prod) => prod.id === id);
+
+  if (item) {
+    item.qty--;
+  }
+
+  if (item.qty === 0) {
+    cartItems = cartItems.filter((prod) => prod.id !== id);
+  }
+
+  updateLocalStorage();
+};
+
+const updateLocalStorage = () => {
+  localStorage.setItem("cartData", JSON.stringify(cartItems));
+  productData();
+  total();
+};
+
+const increaseQty = (id) => {
+  const item = cartItems.find((prod) => prod.id === id);
+
+  if (item) {
+    item.qty++;
+  }
+
+  updateLocalStorage();
+};
+
+const removeItem = (id) => {
+  cartItems = cartItems.filter((prod) => prod.id !== id);
+
+  updateLocalStorage();
+};
+
+const total = () => {
+  const grandTotal = document.getElementById("grand-total");
+
+  const totalAmount = cartItems.reduce((acc, curr) => {
+    return (acc += curr.price * curr.qty);
+  }, 0);
+
+  grandTotal.innerHTML = `
+  
+  <h5>Grand Total ₹${totalAmount}</h5>
+  
+  `;
+};
+
+const checkOut = () => {
+  if (cartItems.length === 0) {
+    alert("your cart is empty");
+    return;
+  } else {
+    alert("order placed successfully");
+    cartItems = [];
+    updateLocalStorage();
+  }
+};

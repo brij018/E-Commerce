@@ -1,83 +1,57 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
 body {
-  background-color: #f5f7fa;
-  color: #333;
+  background: #f4f6f9;
+  font-family: "Segoe UI", sans-serif;
 }
 
-.navbar {
-  border-radius: 12px;
+.custom-nav {
+  background: linear-gradient(135deg, #1d2671, #c33764);
 }
 
-.navbar-brand {
-  font-size: 1.6rem;
-  color: #0d6efd;
+.custom-nav .navbar-brand {
+  font-size: 1.5rem;
+  letter-spacing: 1px;
 }
 
-.navbar-brand:hover {
-  color: #084298;
-}
-
-#itemsContainer {
-  margin-top: 20px;
-}
-
-.card {
-  border: none;
-  border-radius: 18px;
+.product-card {
+  border-radius: 14px;
   overflow: hidden;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  background-color: #ffffff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card:hover {
+.product-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
 
-.card-img-top {
-  height: 220px;
+.product-card img {
+  height: 260px;
   object-fit: cover;
-  background-color: #f1f1f1;
 }
 
-.card-body {
-  padding: 18px;
+.product-card .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.card-title {
-  font-size: 1.05rem;
-  font-weight: 600;
-  margin-bottom: 10px;
+.product-card button {
+  border-radius: 20px;
 }
 
-.card-body p {
-  font-size: 1rem;
-  color: #198754;
+.cart-table thead {
+  background-color: #212529;
+  color: white;
 }
 
-.card-body button {
-  border-radius: 25px;
-  font-size: 0.9rem;
-  padding: 8px 16px;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+.cart-table td,
+.cart-table th {
+  vertical-align: middle;
 }
 
-.card-body button:hover {
-  transform: scale(1.05);
+.modal-content {
+  border-radius: 18px;
 }
 
-/* @media (max-width: 768px) {
-  .card-img-top {
-    height: 180px;
-  }
-
-  .navbar-brand {
-    font-size: 1.3rem;
-  }
-} */
+#grand-total {
+  font-size: 1.2rem;
+}

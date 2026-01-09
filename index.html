@@ -3,74 +3,85 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ShopZone</title>
+  <title>ShopEase</title>
+
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
     rel="stylesheet"
   />
+
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <div class="conainer px-5">
-    <div class="navbar">
-      <div class="navbar-brand">ShopZone</div>
-      <ul class="navbar-nav">
-        <li>
-          <div class="nav-link">
-            <button class="btn btn-success" onclick="showCart()">Cart</button>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div class="container-fluid px-5">
-    <div class="row" id="productList">
-      </div>
-    </div>
-  </div>
-  
-  <!-- modal -->
 
-  <div class="modal" id="product-list" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Cart Items</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <table class="table table-striped table-hover">
+<body>
+  <header class="site-header">
+    <nav class="navbar navbar-expand-lg navbar-dark custom-nav">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="#">ShopEase</a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <button class="btn btn-warning" onclick="showCart()">
+                🛒 View Cart
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container my-5">
+    <div class="row g-4" id="productList"></div>
+  </main>
+
+  <div class="modal fade" id="product-list" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Your Shopping Cart</h5>
+          <button class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table class="table align-middle cart-table">
               <thead>
                 <tr>
-                  <th>Product Name</th>
-                  <th>Product Price</th>
-                  <th>Product Quantity</th>
-                  <th>Product Total</th>
-                  <th>Action</th>
+                  <th>Item</th>
+                  <th>Price</th>
+                  <th>Qty</th>
+                  <th>Total</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody id="product-data"></tbody>
             </table>
           </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
+        </div>
+
+        <div class="modal-footer">
+          <div class="fw-bold me-auto" id="grand-total"></div>
+          <button class="btn btn-outline-secondary" data-bs-dismiss="modal">
+            Continue Shopping
+          </button>
+          <button class="btn btn-success" onclick="checkOut()">
+            Checkout
+          </button>
         </div>
       </div>
     </div>
-
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
   <script src="main.js"></script>
